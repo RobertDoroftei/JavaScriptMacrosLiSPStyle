@@ -18,7 +18,12 @@ function bubble(x){
 }
 var notdef = bubble(undefined);
 var nil = bubble(null);
-
+/*
+  cons are pairs
+  ( value1 . value2)
+  (value) is actually (value, nil)
+  and () is (nil,nul)
+*/
 function cons(){
   if(arguments.length == 0){
     return [nil, nil];
@@ -34,6 +39,12 @@ function not(x){
   }
   return false;
 }
+/*
+  because arrays are translated into lists,
+  which are a chain of cons, anything that is not
+  an Array is considered an atom
+  ** when the "bubble" will be in place then we can use Arrays
+*/
 function atom(x){
   if(Object.prototype.toString.call(x) === "[object Array]"){
       return false;
@@ -68,12 +79,27 @@ function cdr(x){
 function vcdr(x){
   return cdr(x)();
 }
+/*
+  because if is overrated - kidding
+  "if" statement doesn't fit quite good
+  with my way of coding, and goes great with
+  defun
+*/
 function fif(question, if_true, if_false){
   if(question){
     return if_true();
   }
   return if_false();
 }
+/*
+  Anytime you want to go lispy like
+  it's always a lif which gets a list as a variable
+  and you got it right
+  car(x) -> should be the question function
+  cadr(x) -> is what it does on question->yes
+  caddr(x)->is what it does on qestion->no
+  haven't really used it yet, but sounds good
+*/
 function lif(x){
   if(car(x)()){
     return car(cdr(x))();
@@ -86,6 +112,12 @@ function is_null(x){
   }
   return false;
 }
+/*
+concating all elements of a list
+actually it's concating all elements
+in the tree of the list
+
+*/
 function concat(){
   var l = arguments[0];
   function run(x){
@@ -123,6 +155,12 @@ function array_length(a){
 function is_eq_or_heigher_than(i,j){
   return i>=j;
 }
+/*
+  constructing a list
+  if a single argument is provided and that argument is an array
+  then the list is constructed from the elements of the array
+  otherwise, the list is constructed from all the arguments
+*/
 function list(){
   if(arguments.length == 0){
     return cons();
@@ -171,7 +209,9 @@ function concat_with(l,separator){
 }
 
 
-
+/*
+  check/return the defined function template
+*/
 function func(name){
   return functions[name];
 }
